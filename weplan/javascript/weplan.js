@@ -596,29 +596,33 @@ function showTab(index) {
 
 			// Fetch images from Google image search
 			$.ajax({
-				'url': 'https://ajax.googleapis.com/ajax/services/search/images?v=1.0',
-				'type': 'GET',
-				'data': {
-					'q': destinationInDetailsView.city + ', ' + destinationInDetailsView.country,
-					'imgsz': 'medium|large',
-					'rsz': 8 // results per page
-				},
-				'dataType': 'jsonp',
-				'success': function(data) {
-					// Remove loading msg
-					tab.find('.loading').addClass('hidden');
-
-					for( var i = 0; i < data.responseData.results.length; i ++ ) {
-						var result = data.responseData.results[i];
-	
-						var img = $('<div />').css('background-image', 'url("' + result.url + '")');
-						tab.append(img);
-					}
-				},
-				'error': function() {
-					alert("There was a problem fetching photos from Google. Try again.");
-				}
-			});
+                		'url': 'https://www.googleapis.com/customsearch/v1',
+		                'type': 'GET',
+		                'data': {
+		                    'key': 'AIzaSyDX71nzQpm31UiDawWyKjzbFVwqNtw9Y5A',
+		                    'cx': '010561899357414658925:x5qwrqc2ccs',
+		                    'q': destinationInDetailsView.city + ', ' + destinationInDetailsView.country,
+		                    'searchType': 'image',
+		                    'imgType': 'photo',
+		                    'imgSize': 'large',
+		                    'num': 9 // results per page
+		                },
+		                'dataType': 'jsonp',
+		                'success': function(data) {
+		                    // Remove loading msg
+		                    tab.find('.loading').addClass('hidden');
+		
+		                    for( var i = 0; i < data.items.length; i ++ ) {
+		                        var result = data.items[i];
+		
+		                        var img = $('<div />').css({'background-image': 'url("' + result.link + '")'});
+		                        tab.append(img);
+		                    }
+		                },
+		                'error': function() {
+		                    alert("There was a problem fetching photos from Google. Try again.");
+		                }
+		            });
 			break;
 	}
 }
