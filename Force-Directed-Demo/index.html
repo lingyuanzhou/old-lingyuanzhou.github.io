@@ -1,0 +1,249 @@
+<html>
+<head>
+	<title>Force Directed Demo</title>
+	
+	<!-- Main css -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div id="site-bg">
+	</div>
+	
+	<!-- Main sturcture of the application -->
+	<div id="site-structure">
+		<!-- Header div -->
+		<div id="site-head">
+			<div class="side-bg"></div>
+			<div id="headContent">
+				<div id="headContentLeft">
+					<h1 style="line-height: 1.2em; text-align: center; margin: 0px;" class="font_0"><span style="line-height: 1.2em;">Force Directed</span></h1>
+					<p style="line-height: 1.2em; text-align: center; margin: 0px; letter-spacing: 0.5em;" class="font_9">Layout</p>
+				</div>
+				<div id="headContentRight">
+					<ul class="menu">
+						<li class="font_1">HOME</li>
+						<li class="font_1">INTRODUCTION
+							<ul class="submenu">
+								<li class="font_1">Overview</li>
+								<li class="font_1">Usage</li>
+							</ul>
+						</li>
+						<li class="font_1">CONTACT</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Main container -->
+		<div id="page-container">
+			<!-- View div -->
+			<div id="output">
+				<div id="viewer">
+					<canvas id="canvas" width="730" height="730"/>
+				</div>
+				<div id="opacity">
+					<div class="font_5" style="padding: 0px 20px 0px 0px;margin: 0px; float: left; border-right: 2px solid rgb(38, 38, 38);">Background Opacity</div>
+					<input type="range" id="bgopacity" style="margin: 10px 0px 0px 0px; width: 400px;" min="0" max="100" value="80">
+				</div>
+			</div>
+			
+			<!-- Algorithm selection div -->
+			<div id="algorithm">
+				<h1 class="font_5" style="margin: 10px 10px 0px 10px;">Method</h1>
+				<select id="version" style="margin: 10px 15px 15px 10px; width: 165px;">
+					<option value="basic">Basic Version</option>
+					<option value="grid">Grid-Variant Version</option>
+					<option value="barnes">Barnes-Hut Versions</option>
+				</select>
+			</div>
+			
+			<!-- Parameter selection div -->
+			<div id="options">
+				<h1 class="font_5" style="margin: 15px 10px 0px 10px;">Options</h1>
+				<div id="optionsContent">
+					<table>
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Source</p>
+							</td>
+							<td>
+								<select id="source">
+									<option value="select">select</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Target</p>
+							</td>
+							<td>
+								<select id="target">
+									<option value="select">select</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<table style="z-index:1;">
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Node Color</p>
+							</td>
+							<td>
+								<a href="#0" class="popup-trigger" id="scolor" style="background-color:#DF9496;">S</a>
+								<a href="#0" class="popup-trigger" id="tcolor" style="background-color:#727B84;">T</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Edge Color</p>
+							</td>
+							<td>
+								<a href="#0" class="popup-trigger" id="ecolor" style="background-color:#A2ADBC;"></a>
+							</td>
+						</tr>
+						<div class="popup">
+							<div class="popup-container">
+								<div class="colorTag" style="background-color: #727B84;">
+								</div>
+								<div class="colorTag" style="background-color: #DF9496;">
+								</div>
+								<div class="colorTag" style="background-color: #F6F4DA;">
+								</div>
+							
+								<div class="colorTag" style="background-color: #F4F3EE;">
+								</div>
+								<div class="colorTag" style="background-color: #D9E2E1;">
+								</div>
+								<div class="colorTag" style="background-color: #A2ADBC;">
+								</div>
+							</div>
+						</div>
+					</table>
+					<table id="moreOptions">
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Spring</p>
+							</td>
+							<td>
+								<input type="number" id="spring" max="200" step="5" value="30" style="float:right;width:50px;"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Iterations</p>
+							</td>
+							<td>
+								<input type="number" id="iterations" min="1" value="200" style="float:right;width:50px;"/>
+							</td>
+						</tr>
+					</table>
+					<table style="margin:10px 0px 0px 0px;">
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;" id="ns">Node Size</p>
+							</td>
+							<td>
+								<input type="number" id="nodeSize" step="1" value="3" style="float:right;width:50px;"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;" id="et">Edge Thickness</p>
+							</td>
+							<td>
+								<input type="number" id="edgeThickness" step="1" value="1" style="float:right;width:50px;"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="font_0" style="font-size: 14px;">Customization</p>
+							</td>
+						</tr>
+					</table>
+					<table style="margin:0px 0px 5px 0px;">
+						<tr>
+							<td>
+								<p class="font_1" style="font-size: 14px;">Node</p>
+							</td>
+							<td>
+								<input type="checkbox" id="nodeC" value="nodeC" style="float:left;width:15px;height:15px;">
+							</td>
+							<td>
+								<select id="nodeCValue" style="visibility:hidden"></select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="font_1" style="font-size: 14px;">Edge</p>
+							</td>
+							<td>
+								<input type="checkbox" id="edgeC" value="edgeC" style="float:left;width:15px;height:15px;">
+							</td>
+							<td>
+								<select id="edgeCValue" style="visibility:hidden;"></select>
+							</td>
+						</tr>
+					</table>
+					
+					<input type="file" id="openFile" style="display: none;" />
+					<button type="button" id="loadDataBtn" class="font_1" style="font-size: 13px;">Load Data</button>
+					<button type="button" id="apply" class="font_1" style="font-size: 13px;">Apply</button>
+					<div id="info" class="font_1" style="font-size: 13px;">
+					</div>
+				</div>
+			</div>
+			
+			<!-- Time div -->
+			<div id="time">
+				<h1 class="font_5" style="margin: 15px 10px 0px 10px;">Time</h1>
+				<p class="font_6" id="fdTime" style="text-align: center;margin: 0px 10px 0px 10px;">0s</p>
+			</div>
+		</div>
+		
+		<!-- Footer div -->
+		<div id="site-footer">
+			<div class="side-bg"></div>
+			<div id="footerContent">
+				<div class="footerItem">
+					<h1 style="line-height: 1.2em;font-size: 15px;" class="font_7">About Us</h1>
+					<p class="font_9">Team</p>
+					<p class="font_9">Contact</p>
+				</div>
+				<div class="footerItem">
+					<h1 style="line-height: 1.2em;font-size: 15px;" class="font_7">Address</h1>
+					<p class="font_9">SAP<br>35 Rue d'Alsace<br>92300 Levallois-Perret</p>
+				</div>
+				<div class="footerItem">
+					<h1 style="line-height: 1.2em;font-size: 15px;" class="font_7">Reference</h1>
+				</div>
+				<span class="stretch"></span>
+			</div>
+		</div>
+	</div>
+	
+	<!-- All javascripts are placed here for faster page load -->
+	
+	<!-- We use jQuery because it is more easy to work with the DOM using it -->
+	<script src="js/jquery-1.11.3.min.js"></script>
+	
+	<!-- We use jquery-csv for parsing CSV data files -->
+	<script src="js/jquery.csv-0.71.min.js"></script>
+	
+	<!-- We use Jsrand for random number generator -->
+	<script src="js/jsrand.js"></script>
+	
+	<!-- All force-directed layout specific logics are here -->
+	
+	<!-- We use FD.js for the logics of force-directed algorithm -->
+	<script src="js/FD.js"></script>
+	
+	<!-- We use bnTree.js for creating Barnes-Hut Tree -->
+	<script src="js/bnTree.js"></script>
+	
+	<!-- We use graph.js to generate graph from data file -->
+	<script src="js/graph.js"></script>
+	
+	<!-- We use layout to handle events -->
+	<script src="js/layout.js"></script>
+</body>
+</html>
