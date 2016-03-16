@@ -5,13 +5,13 @@ $(document).ready(function() {
 	$('#apply').click(apply);
 	$('#version').change(chooseVersion);
 	$('input:checkbox').change(customization);
-	$('.popup-trigger').click(openPopup);
-	$('.popup').click(closePopup);
-	$('.colorTag').click(changeColor);
+	// $('.popup-trigger').click(openPopup);
+	// $('.popup').click(closePopup);
+	// $('.colorTag').click(changeColor);
 });
 
 var colorMark;
-function changeColor() {
+/* function changeColor() {
 	color = this.style.backgroundColor;
 	elementId = "#" + colorMark;
 	$(elementId).css('background-color', color);
@@ -31,7 +31,7 @@ function openPopup() {
 	$('.popup').css('visibility', 'visible');
 	$('.popup').css('z-index', 100); 
 	colorMark = this.id;
-}
+} */
 
 function changeOpacity() {
     var opacity = $('#bgopacity').val()/100;
