@@ -151,12 +151,11 @@ $(window).on('resize', function(e) {
 var bounds = null;
 var mapMarkers = [];
 var map = L.map('map').setView([64.886265, 29.047852], 4);
-L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-	maxZoom: 18,
-	attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-		'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-		'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-	id: 'examples.map-i875mjb7'
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'zhoumap.pe5a7j6m',
+    accessToken: 'pk.eyJ1IjoiemhvdW1hcCIsImEiOiJjaWx2MmU3dXMwMDZ5dmttNWN0OWZldGo5In0.IMR0VWPWfUAnzDFKE4jBvA'
 }).addTo(map);
 
 
