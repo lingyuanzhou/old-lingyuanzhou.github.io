@@ -1,0 +1,644 @@
+html,body {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+/* Palm image */
+#search_page header img {
+	width: 112px;
+	float: right;
+	margin-right: 1em;
+	margin-left: -0.8em;
+	margin-top: -3px;
+}
+
+body {
+	font-size:18px;
+	margin:0;
+	padding:0;
+	-webkit-transform:translate(0px,0px);
+	-moz-transform:translate(0px,0px);
+	-ms-transform:translate(0px,0px);
+	transform:translate(0px,0px);
+
+	/* TODO: take similar sunset picture from open source photogallery etc */
+	background:url(../images/body_background.jpg);
+	background-size:cover;
+}
+
+/* This is required for the handles to show up
+correctly after the animations (otherwise rendering issues) */
+#map_view_handle, #list_view_handle {
+	-webkit-backface-visibility:hidden;
+}
+
+#main_container {
+	background:white;
+	height:100%;
+	position:relative;
+	-webkit-transition:all .5s;
+	-moz-transition:all .5s;
+	-ms-transition:all .5s;
+	transition:all .5s;
+}
+
+#search_page .scroll {
+	height:100%;
+	overflow:auto;
+}
+
+#search_page header {
+	padding:.2em 0;
+}
+
+button.back {
+	float:left;
+	margin-left:1em;
+}
+
+.row, header {
+	width:85%;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+header {
+	width:100%;
+	background:#39b3d7;
+	padding:0.5em 0;
+	text-align:center;
+	color:white;
+
+	/* Make sure the bg-image for filter sliders is preloaded */
+	background-image:url(../images/slider_bg.png);
+	background-repeat:no-repeat;
+	background-position:-100px -100px;
+}
+
+/* Slogan/Logo */
+header h1 {
+	margin:0;
+}
+
+header .slogan {
+	font-style:italic;
+}
+
+.page {
+	width:100%;
+	height:100%;
+}
+
+#search_page header {
+	margin-bottom:1em;
+}
+
+#search_page .row {
+	margin-bottom:1.5em;
+}
+
+#search_page label {
+	/* Force line break after label */
+	display:block;
+	margin-bottom:0.5em;
+}
+
+/* Number elements for wizard like search */
+#search_page label span {
+	display:inline-block;
+	border-radius:2em;
+	background:#999;
+	color:white;
+	width:2em;
+	height:2em;
+	padding-top:0.3em;
+	text-align:center;
+	vertical-align:middle;
+	margin-right:0.5em;
+}
+
+#search_page input.half-width {
+	width:40%;
+}
+
+#list_and_map_view_outer_container {
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+#list_and_map_view {
+	width:200%;
+	height:100%;
+	position:relative;
+	-webkit-transition:all 0.5s;
+	-moz-transition:all 0.5s;
+	-ms-transition:all 0.5s;
+	transition:all 0.5s;
+}
+
+#list_and_map_view .page {
+	width:50%;
+	height:100%;
+	overflow:auto;
+	float:left;
+}
+
+/* Swipe handles */
+#map_view_handle {
+	z-index:10;
+	position:absolute;
+	left:calc(50% - 10px);
+	top:0;
+	text-transform:uppercase;
+	font-size:1.4em;
+	height:100%;
+	width:.5em;
+}
+
+#map_view_handle span {
+	display:block;
+	-webkit-transform:rotate(-90deg);
+	-webkit-transform-origin:0% 0%;
+	-moz-transform:rotate(-90deg);
+	-moz-transform-origin:0% 0%;
+	-ms-transform:rotate(-90deg);
+	-ms-transform-origin:0% 0%;
+	transform:rotate(-90deg);
+	transform-origin:0% 0%;
+
+	position:absolute;
+	top:calc(50% + 112px);
+	left:-32px;
+	color:white;
+	padding:0.3em 0 0 0;
+	border-top-right-radius:2em;
+	border-top-left-radius:2em;
+	background-color:rgba(0, 0, 0, .8);
+	letter-spacing:2px;
+	white-space:nowrap;
+	width:8.5em;
+	text-align:center;
+}
+
+#list_view_handle {
+	z-index:1000;
+	position:absolute;
+	left:0;
+	top:0;
+	text-transform:uppercase;
+	font-size:1.4em;
+	height:100%;
+	width:.5em;
+}
+
+#list_view_handle span {
+	display:block;
+	-webkit-transform:rotate(-90deg);
+	-webkit-transform-origin:0% 0%;
+	-moz-transform:rotate(-90deg);
+	-moz-transform-origin:0% 0%;
+	-ms-transform:rotate(-90deg);
+	-ms-transform-origin:0% 0%;
+	transform:rotate(-90deg);
+	transform-origin:0% 0%;
+
+	position:absolute;
+	top:calc(50% + 112px);
+	left:0;
+	color:white;
+	padding:0 0 0.3em 0;
+	border-bottom-right-radius:2em;
+	border-bottom-left-radius:2em;
+	background-color:rgba(0, 0, 0, .8);
+	letter-spacing:2px;
+	white-space:nowrap;
+	width:8.5em;
+	text-align:center;
+}
+
+
+/* Search results in list view */
+
+/* The coloring must be done in javascript,
+because of the logic of how filtering works
+.result:nth-child(2n) {
+*/
+.result.odd {
+	background:#E8E8E8;
+}
+
+.result {
+	background:white;
+	padding-left:1em;
+	padding-right:1em;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+}
+
+/* Hide results that don't match the filter values */
+.result.hidden {
+	display:none;
+}
+
+.result .left {
+	clear:left;
+	float:left;
+	margin-right:0.5em;
+	width:7em;
+	min-height:7em;
+}
+
+.result .left img {
+	max-width:7em;
+	max-height:6em;
+	display:block;
+	margin:auto;
+}
+
+.result h2 {
+	font-size:1.4em;
+	margin-top:0;
+	margin-bottom:0.2em;
+}
+
+.result h2 img {
+	vertical-align:bottom;
+	margin-left:0.2em;
+}
+
+dl dt {
+	float:left;
+	margin-right:0.3em;
+}
+
+dl dt:after {
+	content:":";
+}
+
+
+/* Styling for map view */
+#search_results_map  {
+	height:100%;
+}
+
+#search_results_map #map {
+	width:100%;
+	height:calc(100% - 57px);
+}
+
+#search_results_map {
+	/* We need relative positioning, so that we can reference the
+	children by absolute positioning and get the expected positions */
+	position:relative;
+}
+
+#list_and_map_view header {
+	padding-bottom:0.3em;
+}
+
+#search_results_map header button {
+	margin-bottom:0.4em;
+	margin-left:0.5em;
+}
+
+#search_results_list {
+	background:white;
+}
+
+#search_results_list header button {
+	margin-right:1em;
+	margin-top:0.2em;
+}
+
+ul.tabs {
+	margin:0.1em 0 0 0;
+	padding:0;
+}
+
+ul.tabs li {
+	list-style-type:none;
+	display:inline-block;
+	margin-right:1.5em;
+}
+
+ul.tabs li.active {
+	font-weight:bold;
+	font-size:1.1em;
+}
+
+body #details {
+	z-index:20;
+}
+
+#details #details_container {
+	width:400%;
+	height:100%;
+	overflow:hidden;
+	-webkit-transition:all .5s;
+	-moz-transition:all .5s;
+	-ms-transition:all .5s;
+	transition:all .5s;
+}
+
+#details #details_container .tab {
+	width:25%;
+	float:left;
+	height:100%;
+	overflow:auto;
+	padding-bottom:10em;
+}
+
+.tab.info {
+	padding:1em;
+}
+
+.tab.photos div {
+	width:33.333%;
+	background-size:cover;
+	margin:0;
+	float:left;
+}
+
+.tab.photos .loading.hidden {
+	display:none;
+}
+
+.tab.video {
+	text-align:center;
+}
+
+/* Make height equal width, credits: http://www.mademyday.de/css-height-equals-width-with-pure-css.html */
+.tab.photos div:before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+.tab.photos p {
+	text-align:center;
+	margin:2em 0;
+}
+
+
+#filter, #sort, #favorites, #details {
+	position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	visibility:hidden;
+	opacity:0;
+
+	/* Zoom effect */
+	-webkit-transform:scale(.1);
+	-moz-transform:scale(.1);
+	-ms-transform:scale(.1);
+	transform:scale(.1);
+
+	-webkit-transition:all .5s;
+	-moz-transition:all .5s;
+	-ms-transition:all .5s;
+	transition:all .5s;
+
+	background:white;
+	overflow:hidden;
+}
+
+#filter.active, #sort.active, #favorites.active, #details.active {
+	z-index:15;
+	visibility:visible;
+	opacity:1;
+
+	/* Zoom effect */
+	-webkit-transform:scale(1);
+	-moz-transform:scale(1);
+	-ms-transform:scale(1);
+	transform:scale(1);
+}
+
+#filter header h2, #sort header h2 {
+	margin:0;
+}
+
+.range_slider {
+	width:90%;
+	margin:auto;
+	margin-top:2em;
+	border:1px solid gray;
+	background:#E8E8E8;
+}
+
+.range_slider div {
+	width:100%;
+	height:0.7em;
+	background:#39b3d7;
+	position:relative;
+}
+
+.range_slider div > span {
+	display:block;
+	position:absolute;
+	top:-0.4em;
+	height:1.5em;
+	width:1.5em;
+	background:#F8F8F8;
+	border:1px solid gray;
+	border-radius:1.5em;
+}
+
+.range_slider .low {
+	left:-3px;
+}
+
+.range_slider .high {
+	right:-3px;
+}
+
+.range_slider span span {
+	position:relative;
+	bottom:2em;
+	display:block;
+	color:white;
+	width:3em;
+	right:0.8em;
+	text-align:center;
+	background:url(../images/slider_bg.png) no-repeat;
+	background-size:contain;
+	height:2em;
+}
+
+.filter_row {
+	padding:1.5em 0;
+}
+
+.filter_row:nth-child(2n), #sort ul li:nth-child(2n) {
+	background:#E8E8E8;
+}
+
+.filter_row > label:first-child {
+	display:block;
+	text-align:center;
+	font-size:1.5em;
+	text-transform:uppercase;
+}
+
+.filter_row input[type="checkbox"] {
+	min-width:1.2em;
+	min-height:1.2em;
+	vertical-align:sub;
+	float:none;
+}
+
+.filter_row.checkboxes {
+	text-align:center;
+}
+
+.filter_row .checkboxes {
+	display:inline-block;
+	text-align:left;
+}
+
+.filter_row .checkboxes label {
+	margin-bottom:.5em;
+	font-size:1.1em;
+}
+
+/* Make sure scrolling works */
+#filter > div, #sort > div {
+	overflow:auto;
+	height:100%;
+	padding-bottom:2.7em;
+}
+
+div.done {
+	background:#39b3d7;
+	padding-top:1em;
+	padding-bottom:1em;
+	text-align:center;
+}
+
+/* Have to override some styling */
+div.done button.back {
+	float:none;
+	margin-left:0;
+}
+
+#sort div {
+	text-align:center;
+}
+
+#sort ul {
+	margin:0;
+	padding:0;
+}
+
+#sort ul li {
+	list-style-type:none;
+	padding:0.7em 0;
+	display:block;
+	width:100%;
+	text-align:center;
+}
+
+#list_template {
+	display:none;
+}
+
+.loading {
+	background:white;
+	height:100%;
+}
+
+.loading p {
+	margin:1em;
+}
+
+#search_results_list > * {
+	-webkit-backface-visibility:hidden;
+}
+
+.leaflet-popup-content {
+	text-align:center;
+}
+
+.result .fa-heart {
+	float: left;
+	font-size: 2em;
+	margin-right: 0.2em;
+	margin-top:-0.1em;
+	-webkit-transition:all .5s;
+	-moz-transition:all .5s;
+	-ms-transition:all .5s;
+	transition:all .5s;
+}
+
+.result .fa-heart.active {
+	color:red;
+}
+
+#notification {
+	visibility:hidden;
+	opacity:0;
+	position:absolute;
+	bottom:1em;
+	left:5%;
+	width:90%;
+	padding:1em;
+	color:white;
+	background-color:rgba(0, 0, 0, .95);
+	text-align:center;
+
+	-webkit-transition:all .5s;
+	-moz-transition:all .5s;
+	-ms-transition:all .5s;
+	transition:all .5s;
+}
+
+#notification.active {
+	z-index:30;
+	visibility:visible;
+	opacity:1;
+}
+
+#show-favorites {
+	display:block;
+	margin:auto;
+	margin-top:0.5em;
+}
+
+#show-favorites i {
+	color:red;
+}
+
+#favorites h1 .fa-heart {
+	color:red;
+}
+
+#favorites .page p.no_favorites {
+	margin:1em;
+}
+
+#favorites .page p.no_favorites.hidden {
+	display:none;
+}
+
+#favorites .page {
+	overflow:auto;
+	padding-bottom:2em;
+}
+
+.tab.tickets {
+	padding:1em;
+}
+
+#search_results_list .no_results {
+	display:none;
+	background:white;
+	padding:1em;
+}
+
+#search_results_list .no_results.active {
+	display:block;
+}
