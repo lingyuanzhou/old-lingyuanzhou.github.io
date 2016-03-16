@@ -189,9 +189,9 @@ function render(graph) {
 	var nodeSize = parseFloat($('#nodeSize').val());
 	var edgeThickness = parseFloat($('#edgeThickness').val());
 
-	var scolor = $('#scolor').css('background-color');
-	var tcolor = $('#tcolor').css('background-color');
-	var ecolor = $('#ecolor').css('background-color');
+	var scolor = '#DF9496';
+	var tcolor = '#727B84';
+	var ecolor ='#A2ADBC';
 
 	if(graph.edgeC) {
 		graph.edges.forEach(function(edge) {
