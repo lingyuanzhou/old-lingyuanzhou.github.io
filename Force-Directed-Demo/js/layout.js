@@ -11,33 +11,7 @@ $(document).ready(function() {
 	$('#apply').click(apply);
 	$('#version').change(chooseVersion);
 	$('input:checkbox').change(customization);
-	$('.popup-trigger').click(openPopup);
-	$('.popup').click(closePopup);
-	$('.colorTag').click(changeColor);
 });
-
-var colorMark;
-function changeColor() {
-	color = this.style.backgroundColor;
-	elementId = "#" + colorMark;
-	$(elementId).css('background-color', color);
-	closePopup;
-}
-
-function closePopup(event) {
-	if($(event.target).is('.popup') || $(event.target).is('.colorTag')) {
-		$(this).css('visibility', 'hidden');
-	}
-}
-
-function openPopup() {
-	var position = $(this).offset();
-	position.top = position.top+24;
-	$('.popup-container').css(position);
-	$('.popup').css('visibility', 'visible');
-	$('.popup').css('z-index', 100); 
-	colorMark = this.id;
-}
 
 function changeOpacity() {
     var opacity = $('#bgopacity').val()/100;
