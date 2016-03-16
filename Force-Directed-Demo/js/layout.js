@@ -1,17 +1,23 @@
 $(document).ready(function() {
+	$(document).keypress(function(event){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			apply();   
+		}
+	});
     $('#bgopacity').change(changeOpacity);
 	$('#loadDataBtn').click(function() {$('#openFile').click();});
 	$('#openFile').bind('change',loadData);
 	$('#apply').click(apply);
 	$('#version').change(chooseVersion);
 	$('input:checkbox').change(customization);
-	// $('.popup-trigger').click(openPopup);
-	// $('.popup').click(closePopup);
-	// $('.colorTag').click(changeColor);
+	$('.popup-trigger').click(openPopup);
+	$('.popup').click(closePopup);
+	$('.colorTag').click(changeColor);
 });
 
 var colorMark;
-/* function changeColor() {
+function changeColor() {
 	color = this.style.backgroundColor;
 	elementId = "#" + colorMark;
 	$(elementId).css('background-color', color);
@@ -31,7 +37,7 @@ function openPopup() {
 	$('.popup').css('visibility', 'visible');
 	$('.popup').css('z-index', 100); 
 	colorMark = this.id;
-} */
+}
 
 function changeOpacity() {
     var opacity = $('#bgopacity').val()/100;
@@ -159,6 +165,16 @@ function apply() {
 				$('#fdTime').html(html);
 				render(graph);
 				break;	
+			case "multilevel":
+				//createGraphW(data, graph);
+				var start = new Date().getTime();
+				fdMulti(graph);
+				var end = new Date().getTime();
+				var time = end - start;
+				var html = time /1000 + "S";
+				$('#fdTime').html(html);
+				render(graph);
+				break;
 		}
 		var text = $('#version').find("option:selected").text();
 		var info = '<p>Run' + '&nbsp;' + text + '</p>';

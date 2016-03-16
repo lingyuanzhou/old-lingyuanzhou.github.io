@@ -15,13 +15,62 @@ function fdBasic(graph) {
 		k2: k2
 	};
 	
-	var i;
+	/*var i;
 	for (i = 0; i < times; i++) {
 		repulsionBasic(graph, mode.k2);
 		attraction(graph, mode);
 		movement(graph, t, mode);
 		t = tstart * (1 - (i / times));
+	}*/
+	var count = 0;
+	var converged = false;
+	var energy = Number.POSITIVE_INFINITY;
+	while(!converged) {
+		var oldPos = [];
+		for(var i=0; i<graph.nodes.length; i++) {
+			oldPos.push(graph.nodes[i].pos);
+		}
+		
+		var oldEnergy = energy;
+		energy = 0;
+
+		repulsionBasic(graph, mode.k2);
+		attraction(graph, mode);
+		movement(graph, t, mode);
+
+		var newPos = [];
+		for(var i=0; i<graph.nodes.length; i++) {
+			newPos.push(graph.nodes[i].pos);
+			energy = energy + Math.pow(graph.nodes[i].disp.x, 2) + Math.pow(graph.nodes[i].disp.y, 2);
+		}
+
+		t = updateStep(t, energy, oldEnergy, mode);
+		//t = t * 0.9;
+
+		var difference = 0;
+		for(var i=0; i<graph.nodes.length; i++) {
+			difference = difference + vectorMagnitude(vectorSubstract(newPos[i], oldPos[i]));
+		}
+		
+		count = count + 1;
+		if(difference < 0.01) {
+			converged = true;
+		}
 	}
+}
+
+function updateStep(t, energy, oldEnergy, mode) {
+	if(energy < oldEnergy) {
+		mode.progress = mode.progress + 1;
+		if(mode.progress > 3) {
+			mode.progress = 0;
+			t = t / 0.8;
+		}
+	}else {
+		mode.progress = 0;
+		t = t * 0.8;
+	}
+	return t;
 }
 
 /*-----------FD Grid-----------*/
@@ -43,12 +92,47 @@ function fdGrid(graph) {
 		gridRange: range
 	};
 
-	var i;
+	/*var i;
 	for (i = 0; i < times; i++) {
 		repulsionGrid(graph, mode);
 		attraction(graph, mode);
 		movement(graph, t, mode);
 		t = tstart * (1 - (i / times));
+	}*/
+	var count = 0;
+	var converged = false;
+	var energy = Number.POSITIVE_INFINITY;
+	while(!converged) {
+		var oldPos = [];
+		for(var i=0; i<graph.nodes.length; i++) {
+			oldPos.push(graph.nodes[i].pos);
+		}
+		
+		var oldEnergy = energy;
+		energy = 0;
+
+		repulsionGrid(graph, mode);
+		attraction(graph, mode);
+		movement(graph, t, mode);
+
+		var newPos = [];
+		for(var i=0; i<graph.nodes.length; i++) {
+			newPos.push(graph.nodes[i].pos);
+			energy = energy + Math.pow(graph.nodes[i].disp.x, 2) + Math.pow(graph.nodes[i].disp.y, 2);
+		}
+
+		t = updateStep(t, energy, oldEnergy, mode);
+		//t = t * 0.9;
+
+		var difference = 0;
+		for(var i=0; i<graph.nodes.length; i++) {
+			difference = difference + vectorMagnitude(vectorSubstract(newPos[i], oldPos[i]));
+		}
+		
+		count = count + 1;
+		if(difference < 0.01) {
+			converged = true;
+		}
 	}
 }
 
@@ -73,12 +157,50 @@ function fdBarnes(graph) {
 		level: level
 	};
 
-	var i;
+	/*var i;
 	for (i = 0; i < times; i++) {
 		repulsionBarnes(graph, mode);
 		attraction(graph, mode);
 		movement(graph, t, mode);
 		t = tstart * (1 - (i / times));
+	}*/
+	var count = 0;
+	var converged = false;
+	var energy = Number.POSITIVE_INFINITY;
+	while(!converged) {
+		var oldPos = [];
+		for(var i=0; i<graph.nodes.length; i++) {
+			oldPos.push(graph.nodes[i].pos);
+		}
+		
+		var oldEnergy = energy;
+		energy = 0;
+
+		repulsionBarnes(graph, mode);
+		attraction(graph, mode);
+		movement(graph, t, mode);
+
+		var newPos = [];
+		for(var i=0; i<graph.nodes.length; i++) {
+			newPos.push(graph.nodes[i].pos);
+			energy = energy + Math.pow(graph.nodes[i].disp.x, 2) + Math.pow(graph.nodes[i].disp.y, 2);
+		}
+
+		t = updateStep(t, energy, oldEnergy, mode);
+		//t = t * 0.9;
+		if(count%5 == 0) {
+			render(graph);
+		}
+
+		var difference = 0;
+		for(var i=0; i<graph.nodes.length; i++) {
+			difference = difference + vectorMagnitude(vectorSubstract(newPos[i], oldPos[i]));
+		}
+		
+		count = count + 1;
+		if(difference < 0.01) {
+			converged = true;
+		}
 	}
 }
 
@@ -99,7 +221,7 @@ function repulsionBasic(graph, k2) {
 			var distanceValue = vectorMagnitude(distance);
 			if(distanceValue > 0) {
 				var direction = vectorNormalise(distance);
-				var repulsiveForce = layoutRepulsionEquation(distanceValue, k2);
+				var repulsiveForce = 0.2*layoutRepulsionEquation(distanceValue, k2);
 				var movement = vectorMultiply(direction, repulsiveForce);
 				v.disp = vectorAdd(v.disp, movement);
 				u.disp = vectorSubstract(u.disp, movement);
@@ -130,7 +252,7 @@ function repulsionGrid(graph, mode) {
 			var distanceValue = vectorMagnitude(distance);
 			if(distanceValue < mode.gridRange && distanceValue > 0) {
 				var direction = vectorNormalise(distance);
-				var repulsiveForce = layoutRepulsionEquation(distanceValue, mode.k2);
+				var repulsiveForce = 0.2*layoutRepulsionEquation(distanceValue, mode.k2);
 				var movement = vectorMultiply(direction, repulsiveForce);
 				v.disp = vectorAdd(v.disp, movement);
 				u.disp = vectorSubstract(u.disp, movement);
