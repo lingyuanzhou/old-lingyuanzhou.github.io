@@ -150,7 +150,7 @@ $(window).on('resize', function(e) {
 // Initialize the map
 var bounds = null;
 var mapMarkers = [];
-var map = L.map('map').setView([64.886265, 29.047852], 4);
+var map = L.map('map').setView([48.8589996, 2.2071281], 4);
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     // attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, '+
 	// '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
