@@ -1,188 +1,203 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-<!-- <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script> -->
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/jquery.csv-0.71.min.js"></script>
-<script src="js/jsrand.js"></script>
-<script src="js/randomGraph.js"></script>
-<!-- <script src="js/walshaw.js"></script> -->
-<script src="js/math.js"></script>
-<script src="js/FD.js"></script>
-<script src="js/matrix.js"></script>
-<!-- <script src="js/Multilevel.js"></script> -->
-<script src="js/multi.js"></script>
-<script src="js/bnTree.js"></script>
-<script src="js/graph.js"></script>
-<script src="js/layout.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/forcedirected.css">
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/jquery-csv/src/jquery.csv.js"></script>
+    <script src="bower_components/jsrand/jsrand.js"></script>
+
+    <script src="js/randomGraph.js"></script>
+    <script src="js/math.js"></script>
+    <script src="js/FD.js"></script>
+    <script src="js/matrix.js"></script>
+    <script src="js/multi.js"></script>
+    <script src="js/bnTree.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/layout.js"></script>
+
 <title>Force Directed Demo</title>
 </head>
 <body>
-	<div id="site-bg">
-	</div>
-	
-	<div id="site-structure">
-		<div id="site-head">
-			<div class="side-bg"></div>
-			<div id="headContent">
-				<div id="headContentLeft">
-					<h1 style="line-height: 1.2em; text-align: center; margin: 0px;" class="font_0"><span style="line-height: 1.2em;">Force Directed</span></h1>
-					<p style="line-height: 1.2em; text-align: center; margin: 0px; letter-spacing: 0.5em;" class="font_9">Layout</p>
-				</div>
-				<div id="headContentRight">
-					<ul class="menu">
-						<li class="font_1">HOME</li>
-						<li class="font_1">INTRODUCTION
-							<ul class="submenu">
-								<li class="font_1">Overview</li>
-								<li class="font_1">Usage</li>
-							</ul>
-						</li>
-						<li class="font_1">CONTACT</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		
-		<div id="page-container">
-			<div id="output">
-				<div id="viewer">
-					<canvas id="canvas" width="730" height="730"/>
-				</div>
-				<div id="opacity">
-					<div class="font_5" style="padding: 0px 20px 0px 0px;margin: 0px; float: left; border-right: 2px solid rgb(38, 38, 38);">Background Opacity</div>
-					<input type="range" id="bgopacity" style="margin: 10px 0px 0px 0px; width: 400px;" min="0" max="100" value="80">
-				</div>
-			</div>
-			
-			<div id="algorithm">
-				<h1 class="font_5" style="margin: 10px 10px 0px 10px;">Method</h1>
-				<!-- <div id="line"></div> -->
-				<select id="version" style="margin: 10px 15px 15px 10px; width: 165px;">
-					<option value="basic">Basic Version</option>
-					<option value="grid">Grid-Variant Version</option>
-					<option value="barnes">Barnes-Hut Versions</option>
-					<option value="multilevel">Multilevel Versions</option>
-				</select>
-			</div>
-			
-			<div id="options">
-				<h1 class="font_5" style="margin: 15px 10px 0px 10px;">Options</h1>
-				<div id="optionsContent">
-					<table>
-						<tr>
-							<td>
-								<p class="font_0" style="font-size: 14px;">Source</p>
-							</td>
-							<td>
-								<select id="source">
-									<option value="select">select</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="font_0" style="font-size: 14px;">Target</p>
-							</td>
-							<td>
-								<select id="target">
-									<option value="select">select</option>
-								</select>
-							</td>
-						</tr>
-					</table>
-					<table id="moreOptions">
-						<tr>
-							<td>
-								<p class="font_0" style="font-size: 14px;">Spring</p>
-							</td>
-							<td>
-								<input type="number" id="spring" max="200" step="5" value="30" style="float:right;width:50px;"/>
-							</td>
-						</tr>
+    <!--Header-->
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">Force Directed Demo</a>
 
-					</table>
-					<table style="margin:10px 0px 0px 0px;">
-						<tr>
-							<td>
-								<p class="font_0" style="font-size: 14px;" id="ns">Node Size</p>
-							</td>
-							<td>
-								<input type="number" id="nodeSize" step="1" value="5" style="float:right;width:50px;"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="font_0" style="font-size: 14px;" id="et">Edge Thickness</p>
-							</td>
-							<td>
-								<input type="number" id="edgeThickness" step="1" value="1" style="float:right;width:50px;"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="font_0" style="font-size: 14px;">Customization</p>
-							</td>
-						</tr>
-					</table>
-					<table style="margin:0px 0px 5px 0px;">
-						<tr>
-							<td>
-								<p class="font_1" style="font-size: 14px;">Node</p>
-							</td>
-							<td>
-								<input type="checkbox" id="nodeC" value="nodeC" style="float:left;width:15px;height:15px;">
-							</td>
-							<td>
-								<select id="nodeCValue" style="visibility:hidden"></select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<p class="font_1" style="font-size: 14px;">Edge</p>
-							</td>
-							<td>
-								<input type="checkbox" id="edgeC" value="edgeC" style="float:left;width:15px;height:15px;">
-							</td>
-							<td>
-								<select id="edgeCValue" style="visibility:hidden;"></select>
-							</td>
-						</tr>
-					</table>
-					
-					<input type="file" id="openFile" style="display: none;" />
-					<button type="button" id="loadDataBtn" class="font_1" style="font-size: 13px;">Load Data</button>
-					<button type="button" id="apply" class="font_1" style="font-size: 13px;">Apply</button>
-					<div id="info" class="font_1" style="font-size: 13px;">
-					</div>
-				</div>
-			</div>
-			
-			<div id="time">
-				<h1 class="font_5" style="margin: 15px 10px 0px 10px;">Time</h1>
-				<p class="font_6" id="fdTime" style="text-align: center;margin: 0px 10px 0px 10px;">0s</p>
-			</div>
-		</div>
-		
-		<div id="site-footer">
-			<div class="side-bg"></div>
-			<div id="footerContent">
-				<div class="footerItem">
-					<h1 style="line-height: 1.2em;font-size: 15px;" class="font_7">About Us</h1>
-					<p class="font_9">Team</p>
-					<p class="font_9">Contact</p>
-				</div>
-				<div class="footerItem">
-					<h1 style="line-height: 1.2em;font-size: 15px;" class="font_7">Address</h1>
-					<p class="font_9">SAP<br>35 Rue d'Alsace<br>92300 Levallois-Perret</p>
-				</div>
-				<div class="footerItem">
-					<h1 style="line-height: 1.2em;font-size: 15px;" class="font_7">Reference</h1>
-				</div>
-				<span class="stretch"></span>
-			</div>
-		</div>
-	</div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+                <li><a href="#">HOME</a></li>
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown">INTRODUCTION<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Overview</a></li>
+                        <li><a href="#">Usage</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">CONTACT</a></li>
+            </ul>
+        </div>
+    </div>
+
+	<div class="container" id="main-container">
+        <div class="col-sm-9">
+            <div class="row well well-lg" id="output">
+                <div id="viewer">
+                    <canvas id="canvas" class="img-responsive" width="900" height="600"/>
+                </div>
+                <div class="input-group" id="opacity">
+                    <span class="input-group-addon" id="opacity-addon">Background Opacity</span>
+                    <input type="range" class="form-control" id="bg-opacity" aria-describedby="opacity-addon">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+
+            <!--Method-->
+            <div class="row" id="algorithm">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Method</div>
+                    <div class="panel-body">
+                        <select class="form-control" id="version">
+                            <option value="basic">Basic Version</option>
+                            <option value="grid">Grid-Variant Version</option>
+                            <option value="barnes">Barnes-Hut Versions</option>
+                            <option value="multilevel">Multilevel Versions</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!--Option-->
+            <div class="row" id="options">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Options</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="source" class="control-label col-sm-4">Source</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="source">
+                                        <option value="select">select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="target" class="control-label col-sm-4">Target</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="target">
+                                        <option value="select">select</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="spring" class="control-label col-sm-4">Spring</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="spring" value="30" max="200" step="5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nodeSize" class="control-label col-sm-4" id="ns">Node Size</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="nodeSize" step="1" value="5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edgeThickness" class="control-label col-sm-4" id="et">Edge Size</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="edgeThickness" step="1" value="1"/>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <label class="control-label">Customization</label>
+
+                            <div class="form-group">
+                                <div class="checkbox col-sm-4">
+                                    <label>
+                                        <input type="checkbox" class="checkbox pull-right" id="nodeC" value="nodeC">
+                                        <span>Node</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="nodeCValue" disabled></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox col-sm-4">
+                                    <label>
+                                        <input type="checkbox" class="checkbox pull-right" id="edgeC" value="edgeC">
+                                        <span>Edge</span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="edgeCValue" disabled></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input type="file" id="openFile" style="display: none;" />
+                                <button type="button" id="loadDataBtn" class="btn btn-default">Load Data</button>
+                                <button type="button" id="apply" class="btn btn-default">Apply</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--Time-->
+            <div class="row" id="time">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Time</div>
+                    <div class="panel-body">
+                        <p class="font_6" id="fdTime">0s</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--Footer-->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h5>About Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-4">
+                    <h5>Address</h5>
+                    <p>SAP<br>35 Rue d'Alsace<br>92300 Levallois-Perret</p>
+                </div>
+
+                <div class="col-xs-4">
+                    <h5>Reference</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

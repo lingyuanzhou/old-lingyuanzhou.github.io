@@ -5,7 +5,7 @@ $(document).ready(function() {
 			apply();   
 		}
 	});
-    $('#bgopacity').change(changeOpacity);
+    $('#bg-opacity').change(changeOpacity);
 	$('#loadDataBtn').click(function() {$('#openFile').click();});
 	$('#openFile').bind('change',loadData);
 	$('#apply').click(apply);
@@ -14,7 +14,7 @@ $(document).ready(function() {
 });
 
 function changeOpacity() {
-    var opacity = $('#bgopacity').val()/100;
+    var opacity = $('#bg-opacity').val()/100;
     $('#viewer').css('background-color', 'rgba(255, 255, 255, ' + opacity + ')');
 }
 
@@ -164,32 +164,26 @@ function apply() {
 function customization() {
 	if(this.checked) {
 		if(this.id == "nodeC") {
-			$('#nodeCValue').css('visibility', 'visible');
+			$('#nodeCValue').attr('disabled', false);
 			graph.nodeC = true;
 			$('#ns').text("Node Maxium");
 		}else {
-			$('#edgeCValue').css('visibility', 'visible');
+			$('#edgeCValue').attr('disabled', false);
 			graph.edgeC = true;
 			$('#et').text("Edge Maxium");
 		}
 	}else {
 		if(this.id == "nodeC") {
-			$('#nodeCValue').css('visibility', 'hidden');
+			$('#nodeCValue').attr('disabled', true);
 			delete graph.maxNodeC;
 			graph.nodeC = false;
 			$('#ns').text("Node Size");
 		}else {
-			$('#edgeCValue').css('visibility', 'hidden');
+			$('#edgeCValue').attr('disabled', true);
 			graph.edgeC = false;
-			$('#et').text("Edge Thickness");
+			$('#et').text("Edge Size");
 		}
 	}
 }
 
-function showColorBoard(position) {
-	var top = position.top;
-	var left = position.left;
-	$('#colorBoard').css('visibility', 'visible');
-	$('#colorBoard').css('top', top+24);
-	$('#colorBoard').css('left', left+5);
-}
+

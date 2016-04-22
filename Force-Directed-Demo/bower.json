@@ -1,0 +1,23 @@
+{
+  "name": "Force-Directed-Demo",
+  "homepage": "https://github.com/lingyuanzhou/lingyuanzhou.github.io",
+  "authors": [
+    "lingyuanzhou <lingyuanzhou12@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6",
+    "jquery-csv": "https://github.com/evanplaice/jquery-csv.git#^0.8.1",
+    "jsrand": "https://github.com/DomenicoDeFelice/jsrand.git"
+  }
+}
